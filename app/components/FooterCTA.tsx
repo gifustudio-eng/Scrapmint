@@ -20,9 +20,6 @@ export function QuoteStrip() {
 export function CTA() {
   return (
     <section id="cta">
-      <div className="cta-bg">
-        <Image src="/team_processing.jpeg" alt="" aria-hidden fill style={{ objectFit: "cover" }} />
-      </div>
       <div className="cta-inner">
         <div>
           <h2 className="cta-headline">

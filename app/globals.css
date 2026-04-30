@@ -219,9 +219,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(
 .quote-text { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 3vw, 36px); line-height: 1.1; text-transform: uppercase; letter-spacing: -0.2px; color: var(--navy); }
 .quote-source { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(11,18,84,0.45); margin-top: 16px; }
 
-#cta { padding: 120px 0; background: var(--navy); border-top: 4px solid var(--mint); position: relative; overflow: hidden; }
-.cta-bg { position: absolute; inset: 0; z-index: 0; }
-.cta-inner { max-width: 1280px; margin: 0 auto; padding: 0 56px; display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center; position: relative; z-index: 1; }
+#cta { padding: 120px 0; background: var(--navy); border-top: 4px solid var(--mint); }
+.cta-inner { max-width: 1280px; margin: 0 auto; padding: 0 56px; display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center; }
 .cta-headline { font-family: var(--font-display); font-weight: 700; font-size: clamp(48px, 5.5vw, 84px); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.5px; color: var(--white); }
 .cta-headline .accent { color: var(--mint); display: block; }
 .cta-sub { font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.48); max-width: 380px; margin-top: 22px; }
