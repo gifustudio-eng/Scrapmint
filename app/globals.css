@@ -186,13 +186,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(
 #how-we-work .section-label { color: rgba(255,255,255,0.28); }
 #how-we-work .section-label::before { background: rgba(255,255,255,0.2); }
 #how-we-work .section-title { color: var(--white); }
-.process-track { display: grid; grid-template-columns: repeat(4,1fr); margin-top: 64px; border: 1px solid rgba(255,255,255,0.08); }
-.process-step { padding: 40px 28px 44px; border-right: 1px solid rgba(255,255,255,0.06); position: relative; }
+.process-track { display: grid; grid-template-columns: repeat(4,1fr); margin-top: 64px; border: 1px solid rgba(255,255,255,0.15); }
+.process-step { padding: 40px 28px 44px; border-right: 1px solid rgba(255,255,255,0.15); position: relative; }
 .process-step:last-child { border-right: none; }
 .process-step-image { width: 100%; height: 130px; overflow: hidden; margin-bottom: 24px; position: relative; }
 .process-step:hover .process-step-image img { filter: grayscale(30%) brightness(0.75); }
 .process-step-image-border { position: absolute; inset: 0; border: 1px solid rgba(61,255,160,0.12); }
-.step-num { font-family: var(--font-display); font-weight: 700; font-size: 58px; line-height: 1; color: rgba(255,255,255,0.04); letter-spacing: -2px; margin-bottom: 10px; }
+.step-num { font-family: var(--font-display); font-weight: 700; font-size: 58px; line-height: 1; color: rgba(255,255,255,0.85); letter-spacing: -2px; margin-bottom: 10px; }
 .step-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 10px; }
 .step-title { font-family: var(--font-display); font-weight: 700; font-size: 24px; text-transform: uppercase; letter-spacing: 0.2px; color: var(--white); margin-bottom: 14px; }
 .step-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.42); }
