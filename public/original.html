@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrapmint™ — Waste Infrastructure. Circular Systems.</title>
+  <meta name="description" content="Scrapmint designs and operates the infrastructure that closes the loop — from collection to recovery. Built for Indonesia. Engineered for scale." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400;1,600&family=Barlow:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0B1254;
+      --navy-deep: #060B36;
+      --navy-mid: #1a2170;
+      --mint: #3DFFA0;
+      --mint-dim: #2be088;
+      --white: #FFFFFF;
+      --off-white: #F4F4F2;
+      --gray-light: #E8E8E4;
+      --gray-mid: #AFAFAA;
+      --gray-dark: #555550;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--navy);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--navy);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+    .nav-logo-img { height: 40px; width: auto; display: block; mix-blend-mode: multiply; }
+    /* Logo on dark background (footer) — invert to show white */
+    .footer-logo-img { height: 32px; width: auto; display: block; filter: brightness(0) invert(1); margin-bottom: 8px; }
+    .drawer-logo-img { height: 32px; width: auto; display: block; filter: brightness(0) invert(1); margin-bottom: 32px; }
+
+    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+    .nav-links a { font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--navy); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--mint-dim); }
+    .nav-cta { background: var(--navy) !important; color: var(--white) !important; padding: 8px 20px !important; border: 2px solid var(--navy); transition: background 0.15s, color 0.15s !important; }
+    .nav-cta:hover { background: var(--mint) !important; color: var(--navy) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 200; }
+    .hamburger span { display: block; width: 28px; height: 2px; background: var(--navy); transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-drawer {
+      position: fixed; top: 0; right: 0;
+      width: 300px; height: 100vh;
+      background: var(--navy); z-index: 150;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      padding: 96px 40px 48px;
+      display: flex; flex-direction: column;
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+    .mobile-drawer a { font-family: var(--font-display); font-weight: 600; font-size: 26px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--white); text-decoration: none; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); transition: color 0.15s; display: block; }
+    .mobile-drawer a:hover { color: var(--mint); }
+    .drawer-cta { margin-top: 40px; background: var(--mint); color: var(--navy) !important; padding: 16px 24px !important; text-align: center; border: none; font-weight: 700 !important; }
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 140; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ─── SHARED ──────────────────────────── */
+    .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 56px; }
+    .section-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gray-mid); }
+    .section-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(38px, 4.5vw, 66px); line-height: 0.97; text-transform: uppercase; letter-spacing: -0.3px; color: var(--navy); margin-bottom: 24px; }
+    .section-title .accent { color: var(--mint-dim); }
+
+    .btn-primary { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; background: var(--mint); color: var(--navy); border: 2px solid var(--mint); padding: 13px 30px; text-decoration: none; display: inline-block; transition: background 0.15s, color 0.15s; cursor: pointer; }
+    .btn-primary:hover { background: transparent; color: var(--mint); }
+    .btn-secondary { font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; background: transparent; color: rgba(255,255,255,0.75); border: 2px solid rgba(255,255,255,0.3); padding: 13px 30px; text-decoration: none; display: inline-block; transition: border-color 0.15s, color 0.15s; cursor: pointer; }
+    .btn-secondary:hover { border-color: var(--white); color: var(--white); }
+
+    /* ─── HERO ─────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: grid;
+      grid-template-columns: 55% 45%;
+      padding-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-image { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.08; filter: grayscale(100%); }
+
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 56px 80px 64px;
+      position: relative; z-index: 1;
+      border-right: 1px solid rgba(61,255,160,0.18);
+    }
+    .hero-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }
+    .hero-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--mint); }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(60px, 6.5vw, 96px);
+      line-height: 0.96;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      margin-bottom: 32px;
+    }
+    .hero-headline .accent { color: var(--mint); }
+
+    .hero-sub { font-size: 17px; font-weight: 400; line-height: 1.65; color: rgba(255,255,255,0.58); max-width: 420px; margin-bottom: 48px; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hero-right { display: flex; flex-direction: column; position: relative; z-index: 1; overflow: hidden; }
+    .hero-image-stack { flex: 1; position: relative; overflow: hidden; min-height: 300px; }
+    .hero-image-stack img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; filter: grayscale(25%); }
+    .hero-image-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(11,18,84,0.2), rgba(11,18,84,0.55)); }
+
+    .hero-stat-block { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.07); flex-shrink: 0; }
+    .stat-item { background: rgba(8,13,66,0.95); padding: 22px 24px; border: 1px solid rgba(255,255,255,0.05); }
+    .stat-number { font-family: var(--font-display); font-weight: 700; font-size: 42px; line-height: 1; color: var(--mint); letter-spacing: -1px; margin-bottom: 5px; }
+    .stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.38); line-height: 1.5; }
+
+    /* ─── ABOUT ───────────────────────────── */
+    #about { padding: 120px 0; background: var(--white); border-top: 2px solid var(--navy); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-image-wrap { position: relative; overflow: hidden; }
+    .about-image-wrap img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; filter: grayscale(20%); transition: filter 0.4s; }
+    .about-image-wrap:hover img { filter: grayscale(0%); }
+    .about-content { display: flex; flex-direction: column; gap: 0; }
+    .about-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .about-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gray-mid); }
+    .about-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(38px, 4.5vw, 60px); line-height: 0.97; text-transform: uppercase; color: var(--navy); margin-bottom: 32px; }
+    .about-lead { font-size: 20px; font-weight: 500; line-height: 1.5; color: var(--navy); margin-bottom: 20px; }
+    .about-body { font-size: 15px; line-height: 1.8; color: var(--gray-dark); margin-bottom: 16px; }
+    .about-tagline { font-family: var(--font-display); font-weight: 700; font-size: 22px; text-transform: uppercase; color: var(--mint-dim); letter-spacing: 0.5px; margin-top: 8px; }
+
+    /* ─── VISION / MISSION ────────────────── */
+    #vision-mission { background: var(--navy); padding: 100px 0; border-top: 2px solid var(--mint); border-bottom: 2px solid var(--mint); }
+    .vm-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; align-items: stretch; }
+    .vm-divider { background: rgba(255,255,255,0.1); }
+    .vm-card { padding: 0 72px; }
+    .vm-card:first-child { padding-left: 0; }
+    .vm-card:last-child { padding-right: 0; }
+    .vm-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .vm-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--mint); }
+    .vm-quote { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 2.8vw, 36px); line-height: 1.1; text-transform: uppercase; color: var(--white); font-style: italic; }
+    .vm-quote .vm-accent { color: var(--mint); }
+    .vm-text { font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.6); }
+
+    /* ─── MRF STATS BLOCK ─────────────────── */
+    .mrf-stats-block { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gray-light); margin-top: 56px; border: 2px solid var(--navy); }
+    .mrf-stat { padding: 48px 40px; text-align: center; background: var(--white); position: relative; }
+    .mrf-stat.highlight { background: var(--navy); }
+    .mrf-stat.highlight .mrf-stat-num { color: var(--mint); }
+    .mrf-stat.highlight .mrf-stat-label { color: rgba(255,255,255,0.55); }
+    .mrf-stat.highlight .mrf-stat-unit { color: rgba(255,255,255,0.4); }
+    .mrf-stat-num { font-family: var(--font-display); font-weight: 700; font-size: clamp(52px, 6vw, 80px); line-height: 1; color: var(--navy); letter-spacing: -2px; }
+    .mrf-stat-unit { font-family: var(--font-display); font-weight: 600; font-size: 22px; text-transform: uppercase; color: var(--gray-mid); margin-top: 4px; }
+    .mrf-stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-top: 12px; line-height: 1.6; }
+
+    /* ─── INNOVATIVE RECYCLING CARDS ─────── */
+    .inno-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; background: var(--gray-light); border: 2px solid var(--navy); }
+    .inno-card { background: var(--white); overflow: hidden; }
+    .inno-card-img { height: 180px; overflow: hidden; position: relative; }
+    .inno-card-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); transition: transform 0.4s, filter 0.4s; display: block; }
+    .inno-card:hover .inno-card-img img { transform: scale(1.04); filter: grayscale(0%); }
+    .inno-card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(11,18,84,0.6)); }
+    .inno-card-body { padding: 24px 28px 32px; border-top: 2px solid var(--mint); }
+    .inno-card-title { font-family: var(--font-display); font-weight: 700; font-size: 22px; text-transform: uppercase; color: var(--navy); margin-bottom: 8px; }
+    .inno-card-sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mint-dim); margin-bottom: 14px; }
+    .inno-card-desc { font-size: 13px; line-height: 1.7; color: var(--gray-dark); }
+
+    /* ─── UPCOMING PLANS ─────────────────── */
+    #upcoming { padding: 120px 0; background: var(--off-white); border-top: 2px solid var(--navy); border-bottom: 2px solid var(--navy); }
+    #upcoming .section-title { color: var(--navy); }
+    .upcoming-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; background: var(--gray-light); border: 2px solid var(--navy); }
+    .upcoming-card { background: var(--white); overflow: hidden; }
+    .upcoming-card-img { height: 240px; overflow: hidden; position: relative; }
+    .upcoming-card-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(40%); transition: filter 0.4s; display: block; }
+    .upcoming-card:hover .upcoming-card-img img { filter: grayscale(0%); }
+    .upcoming-card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, rgba(11,18,84,0.65)); }
+    .upcoming-card-body { padding: 32px 36px 40px; }
+    .upcoming-badge { display: inline-block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; background: var(--mint); color: var(--navy); padding: 4px 12px; margin-bottom: 18px; font-weight: 600; }
+    .upcoming-card-title { font-family: var(--font-display); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--navy); margin-bottom: 14px; line-height: 1.05; }
+    .upcoming-card-desc { font-size: 14px; line-height: 1.75; color: var(--gray-dark); }
+
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .vm-grid { grid-template-columns: 1fr; gap: 48px; }
+      .vm-divider { display: none; }
+      .vm-card { padding: 0; }
+      .mrf-stats-block { grid-template-columns: 1fr; }
+      .inno-grid { grid-template-columns: 1fr; }
+      .upcoming-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      #about, #vision-mission, #upcoming { padding: 80px 0; }
+    }
+
+    /* ─── PROBLEM ─────────────────────────── */
+    #problem { background: var(--off-white); padding: 120px 0; border-top: 2px solid var(--navy); border-bottom: 2px solid var(--navy); }
+    .problem-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 72px; align-items: end; }
+    .problem-statement { font-size: 18px; line-height: 1.65; color: var(--gray-dark); }
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+    .problem-card { background: var(--white); border: 2px solid var(--navy); overflow: hidden; }
+    .problem-card-image { width: 100%; height: 180px; overflow: hidden; position: relative; }
+    .problem-card-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(55%); transition: transform 0.4s, filter 0.4s; }
+    .problem-card:hover .problem-card-image img { transform: scale(1.04); filter: grayscale(15%); }
+    .problem-card-image-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(11,18,84,0.65)); }
+    .problem-card-body { padding: 28px 28px 32px; }
+    .problem-number { font-family: var(--font-display); font-weight: 700; font-size: 52px; line-height: 1; color: var(--gray-light); letter-spacing: -2px; margin-bottom: 14px; }
+    .problem-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 0.2px; color: var(--navy); margin-bottom: 12px; }
+    .problem-desc { font-size: 14px; line-height: 1.7; color: var(--gray-dark); }
+
+    /* ─── WHAT WE DO ──────────────────────── */
+    #what-we-do { padding: 120px 0; background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 64px; border: 2px solid var(--navy); }
+
+    .service-item { position: relative; overflow: hidden; cursor: default; }
+    .service-image { width: 100%; height: 220px; overflow: hidden; position: relative; }
+    .service-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(45%); transition: transform 0.4s, filter 0.4s; }
+    .service-item:hover .service-image img { transform: scale(1.04); filter: grayscale(0%); }
+    .service-image-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, rgba(11,18,84,0.55)); }
+    .service-body { padding: 26px 32px 34px; background: var(--white); transition: background 0.2s; overflow: hidden; }
+    .service-item:hover .service-body { background: var(--navy); }
+    .service-item:hover .service-title { color: var(--mint); }
+    .service-item:hover .service-desc { color: rgba(255,255,255,0.55); }
+    .service-item:hover .service-num { color: rgba(255,255,255,0.05); }
+    .service-num { font-family: var(--font-display); font-weight: 700; font-size: 60px; line-height: 1; color: var(--gray-light); letter-spacing: -2px; float: right; margin-top: -6px; transition: color 0.2s; }
+    .service-title { font-family: var(--font-display); font-weight: 700; font-size: 21px; text-transform: uppercase; letter-spacing: 0.2px; color: var(--navy); margin-bottom: 12px; transition: color 0.2s; }
+    .service-desc { font-size: 14px; line-height: 1.7; color: var(--gray-dark); max-width: 340px; transition: color 0.2s; }
+
+
+    /* ─── PROJECTS ────────────────────────── */
+    #projects { padding: 120px 0; background: var(--off-white); border-top: 2px solid var(--navy); }
+    .projects-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 56px; }
+    .projects-header a { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--navy); text-decoration: none; border-bottom: 2px solid var(--navy); padding-bottom: 2px; transition: color 0.15s, border-color 0.15s; }
+    .projects-header a:hover { color: var(--mint-dim); border-color: var(--mint-dim); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; align-items: stretch; }
+
+    /* card-link fills full grid cell height */
+    .project-card-link { text-decoration: none; display: flex; flex-direction: column; color: inherit; height: 100%; }
+    .project-card-link .project-card {
+      border: 2px solid var(--navy);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+    }
+    .project-card-link:hover .project-card {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(11,18,84,0.15);
+      border-color: var(--mint-dim);
+    }
+    .project-card-link:hover .project-arrow { transform: translate(3px,-3px); color: var(--mint-dim); }
+    .project-card-link:hover .project-thumb img { transform: scale(1.05); filter: grayscale(0%); }
+    .project-card-link:hover .project-name { color: var(--mint-dim); }
+    .project-card-link .project-card::after {
+      content: 'See Full Details ↓';
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mint-dim);
+      padding: 10px 24px 14px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      border-top: 1px solid var(--gray-light);
+    }
+    .project-card-link:hover .project-card::after { opacity: 1; }
+
+    /* non-linked card (upcoming) also stretches */
+    .project-card { background: var(--white); border: 2px solid var(--navy); overflow: hidden; transition: transform 0.2s; cursor: pointer; display: flex; flex-direction: column; height: 100%; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(11,18,84,0.1); }
+    .project-card:hover .project-arrow { transform: translate(3px,-3px); }
+    .project-card:hover .project-thumb img { transform: scale(1.05); filter: grayscale(0%); }
+
+    .project-thumb { width: 100%; height: 210px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .project-thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); transition: transform 0.4s, filter 0.4s; }
+    .project-thumb-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(11,18,84,0.08), rgba(11,18,84,0.52)); }
+    .project-status { position: absolute; top: 14px; left: 14px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; z-index: 2; }
+    .status-active { background: var(--mint); color: var(--navy); font-weight: 600; }
+    .status-pilot { background: var(--navy); color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+    .status-design { background: rgba(255,255,255,0.92); color: var(--navy); }
+
+    /* body grows to fill remaining card space, footer sticks to bottom */
+    .project-body { padding: 24px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+    .project-location { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 10px; }
+    .project-name { font-family: var(--font-display); font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 0.2px; color: var(--navy); margin-bottom: 10px; line-height: 1.1; }
+    .project-blurb { font-size: 13px; line-height: 1.65; color: var(--gray-dark); margin-bottom: 20px; flex: 1; }
+    .project-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--gray-light); padding-top: 14px; margin-top: auto; }
+    .project-type { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-mid); }
+    .project-arrow { font-size: 16px; color: var(--navy); transition: transform 0.2s; display: inline-block; }
+
+    /* ─── HOW WE WORK ─────────────────────── */
+    #how-we-work { padding: 120px 0; background: var(--navy); }
+    #how-we-work .section-label { color: rgba(255,255,255,0.28); }
+    #how-we-work .section-label::before { background: rgba(255,255,255,0.2); }
+    #how-we-work .section-title { color: var(--white); }
+    .process-track { display: grid; grid-template-columns: repeat(4,1fr); margin-top: 64px; border: 1px solid rgba(255,255,255,0.08); }
+    .process-step { padding: 40px 28px 44px; border-right: 1px solid rgba(255,255,255,0.06); position: relative; }
+    .process-step:last-child { border-right: none; }
+    .process-step-image { width: 100%; height: 130px; overflow: hidden; margin-bottom: 24px; position: relative; }
+    .process-step-image img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(70%) brightness(0.55); transition: filter 0.3s; }
+    .process-step:hover .process-step-image img { filter: grayscale(30%) brightness(0.75); }
+    .process-step-image-border { position: absolute; inset: 0; border: 1px solid rgba(61,255,160,0.12); }
+    .step-num { font-family: var(--font-display); font-weight: 700; font-size: 58px; line-height: 1; color: rgba(255,255,255,0.04); letter-spacing: -2px; margin-bottom: 10px; }
+    .step-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 10px; }
+    .step-title { font-family: var(--font-display); font-weight: 700; font-size: 24px; text-transform: uppercase; letter-spacing: 0.2px; color: var(--white); margin-bottom: 14px; }
+    .step-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.42); }
+
+    /* ─── YOUTH ───────────────────────────── */
+    #youth { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--navy); }
+    .youth-visual { position: relative; min-height: 600px; overflow: hidden; }
+    .youth-visual img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(15%); display: block; }
+    .youth-visual-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(11,18,84,0.5) 0%, rgba(11,18,84,0.15) 100%); }
+    .youth-visual-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; background: linear-gradient(transparent, rgba(6,11,54,0.9)); }
+    .youth-visual-headline { font-family: var(--font-display); font-weight: 700; font-size: 50px; line-height: 0.97; text-transform: uppercase; letter-spacing: -0.5px; color: var(--white); }
+    .youth-visual-headline span { color: var(--mint); }
+    .youth-content { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--white); }
+    .youth-statement { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 2.8vw, 40px); line-height: 1.05; text-transform: uppercase; letter-spacing: -0.2px; color: var(--navy); margin-bottom: 24px; }
+    .youth-statement span { color: var(--mint-dim); }
+    .youth-body { font-size: 16px; line-height: 1.75; color: var(--gray-dark); margin-bottom: 40px; }
+    .youth-pillars { display: flex; flex-direction: column; border: 2px solid var(--navy); }
+    .pillar-row { display: flex; align-items: center; gap: 20px; padding: 14px 22px; border-bottom: 1px solid var(--gray-light); }
+    .pillar-row:last-child { border-bottom: none; }
+    .pillar-dot { width: 7px; height: 7px; background: var(--mint-dim); flex-shrink: 0; }
+    .pillar-text { font-family: var(--font-display); font-weight: 600; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--navy); }
+
+    /* ─── QUOTE STRIP ──────────────────────── */
+    #quote-strip { background: var(--mint); padding: 64px 0; border-top: 2px solid var(--navy); border-bottom: 2px solid var(--navy); }
+    .quote-inner { max-width: 1280px; margin: 0 auto; padding: 0 56px; display: grid; grid-template-columns: auto 1fr; gap: 56px; align-items: center; }
+    .quote-mark { font-family: var(--font-display); font-weight: 700; font-size: 120px; line-height: 0.8; color: rgba(11,18,84,0.14); letter-spacing: -4px; }
+    .quote-text { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 3vw, 36px); line-height: 1.1; text-transform: uppercase; letter-spacing: -0.2px; color: var(--navy); }
+    .quote-source { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(11,18,84,0.45); margin-top: 16px; }
+
+    /* ─── CTA ─────────────────────────────── */
+    #cta { padding: 120px 0; background: var(--navy); border-top: 4px solid var(--mint); position: relative; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; z-index: 0; }
+    .cta-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.07; filter: grayscale(100%); }
+    .cta-inner { max-width: 1280px; margin: 0 auto; padding: 0 56px; display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center; position: relative; z-index: 1; }
+    .cta-headline { font-family: var(--font-display); font-weight: 700; font-size: clamp(48px, 5.5vw, 84px); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.5px; color: var(--white); }
+    .cta-headline .accent { color: var(--mint); display: block; }
+    .cta-sub { font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.48); max-width: 380px; margin-top: 22px; }
+    .cta-actions { display: flex; flex-direction: column; gap: 14px; flex-shrink: 0; }
+
+    /* ─── FOUNDERS ────────────────────────── */
+    #founders {
+      padding: 120px 0;
+      background: var(--navy-deep);
+      border-top: 2px solid rgba(255,255,255,0.08);
+    }
+    #founders .section-label { color: rgba(255,255,255,0.28); }
+    #founders .section-label::before { background: rgba(255,255,255,0.2); }
+    #founders .section-title { color: var(--white); margin-bottom: 72px; }
+
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      max-width: 900px;
+    }
+
+    .founder-card {
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .founder-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      position: relative;
+      overflow: hidden;
+    }
+    .founder-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(40%);
+      transition: filter 0.4s, transform 0.4s;
+    }
+    .founder-card:hover .founder-photo img {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+    .founder-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(6,11,54,0.92) 100%
+      );
+    }
+
+    .founder-identity {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 16px 16px 14px;
+      z-index: 2;
+    }
+    .founder-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 3px;
+    }
+    .founder-title {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mint);
+    }
+
+    .founder-quote-drawer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: var(--navy);
+      border-top: 2px solid var(--mint);
+      padding: 16px;
+      transform: translateY(100%);
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+    }
+    .founder-card:hover .founder-quote-drawer {
+      transform: translateY(0);
+    }
+    .founder-quote-mark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 0.8;
+      color: var(--mint);
+      opacity: 0.4;
+      margin-bottom: 6px;
+    }
+    .founder-quote-text {
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+      font-style: italic;
+    }
+    .founder-quote-name {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-top: 10px;
+    }
+
+    /* ─── FOOTER ──────────────────────────── */
+    footer { background: var(--navy-deep); border-top: 2px solid rgba(255,255,255,0.07); padding: 48px 56px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .footer-logo-text { font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: 2px; color: var(--white); }
+    .footer-tagline { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.18); margin-top: 6px; }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.28); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--mint); }
+    .footer-social { display: flex; align-items: center; gap: 16px; }
+    .footer-social a {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 8px 14px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .footer-social a:hover { color: var(--mint); border-color: var(--mint); }
+    .footer-copy { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.16); }
+
+    /* RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      .founders-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+    }
+    @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 80px 40px 40px; border-right: none; border-bottom: 1px solid rgba(61,255,160,0.18); }
+      .hero-right { min-height: 440px; }
+      .hero-stat-block { grid-template-columns: repeat(4,1fr); }
+      .problem-header { grid-template-columns: 1fr; gap: 32px; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .process-track { grid-template-columns: 1fr 1fr; }
+      #youth { grid-template-columns: 1fr; }
+      .youth-visual { min-height: 420px; }
+      .youth-content { padding: 64px 40px; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      .cta-actions { flex-direction: row; }
+      .quote-inner { grid-template-columns: 1fr; gap: 16px; }
+      .quote-mark { display: none; }
+    }
+    @media (max-width: 768px) {
+      .founders-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .section-inner { padding: 0 24px; }
+      #problem, #what-we-do, #projects, #how-we-work { padding: 80px 0; }
+      .hero-left { padding: 60px 24px 40px; }
+      .hero-stat-block { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .process-track { grid-template-columns: 1fr; }
+      .cta-inner { padding: 0 24px; }
+      .cta-actions { flex-direction: column; }
+      .youth-content { padding: 56px 24px; }
+      .quote-inner { padding: 0 24px; }
+      footer { padding: 40px 24px; }
+      .footer-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="logo.png" alt="Scrapmint" class="nav-logo-img" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#what-we-do">What We Do</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#cta" class="nav-cta">Partner With Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <img src="logo.png" alt="Scrapmint" class="drawer-logo-img" />
+    <a href="#about">About</a>
+    <a href="#problem">The Problem</a>
+    <a href="#what-we-do">What We Do</a>
+    <a href="#projects">Projects</a>
+    <a href="#founders">Founders</a>
+    <a href="#cta" class="drawer-cta">Partner With Us</a>
+  </div>
+
+  <!-- ══ HERO ══════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg-image">
+      <img src="team_mrf.jpeg" alt="" aria-hidden="true" loading="eager" />
+    </div>
+
+    <div class="hero-left">
+      <div class="hero-tag">Indonesia · Circular Infrastructure</div>
+      <h1 class="hero-headline">
+        Waste Is A<br>
+        <span class="accent">Systems</span><br>
+        Problem.
+      </h1>
+      <p class="hero-sub">
+        Scrapmint designs and operates the infrastructure that closes the loop — from collection to recovery. Built for Indonesia. Engineered for scale.
+      </p>
+      <div class="hero-ctas">
+        <a href="#cta" class="btn-primary">Partner With Us</a>
+        <a href="#projects" class="btn-secondary">Explore Our Work</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-image-stack">
+        <!-- Option A: tumpukan sampah Jakarta bawah flyover (aktif) -->
+        <img src="hero_waste_jakarta.jpeg" alt="Waste pile under a Jakarta flyover — Indonesia's waste crisis" loading="eager" />
+        <!-- Option B: <img src="hero_waste_pile.jpeg" alt="Waste pile" loading="eager" /> -->
+        <!-- Option C: <img src="hero_waste_street.jpeg" alt="Street waste collection" loading="eager" /> -->
+        <div class="hero-image-overlay"></div>
+      </div>
+      <div class="hero-stat-block">
+        <div class="stat-item">
+          <div class="stat-number">68M</div>
+          <div class="stat-label">Tonnes waste<br>yearly — ID</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">14%</div>
+          <div class="stat-label">Formal recycling<br>rate, Indonesia</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3RD</div>
+          <div class="stat-label">Largest ocean<br>plastic polluter</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Scalable circular<br>systems in place</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ════════════════════════════════════ -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-image-wrap">
+          <img src="about_team.jpeg" alt="Scrapmint team visiting a Material Recovery Facility in Indonesia" loading="lazy" />
+        </div>
+        <div class="about-content">
+          <div class="about-eyebrow">Why We Exist</div>
+          <h2 class="about-title">About<br><span class="accent">Scrapmint</span></h2>
+          <p class="about-lead">Indonesia generates <strong>70 million tons</strong> of municipal waste per year — that's roughly <strong>190,000 tons every single day</strong>. One of the highest volumes in Southeast Asia.</p>
+          <p class="about-body">Most waste ends up in landfills. Open burning is common. Rivers carry plastic to the sea. Indonesia is the world's third-largest ocean plastic polluter — not because Indonesians don't care, but because the systems needed to handle this scale simply don't exist yet.</p>
+          <p class="about-body">Standard solutions won't be enough. The scale demands creative, systemic thinking. New infrastructure. New models. New approaches — designed specifically for Indonesia's geography, economy, and density.</p>
+          <div class="about-tagline">We're working on it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VISION / MISSION ══════════════════════════ -->
+  <section id="vision-mission">
+    <div class="section-inner">
+      <div class="vm-grid">
+        <div class="vm-card">
+          <div class="vm-label">Vision</div>
+          <div class="vm-quote">"To build a generation of young innovators who turn scrap into <span class="vm-accent">sustainable materials</span> and create measurable environmental impact."</div>
+        </div>
+        <div class="vm-divider"></div>
+        <div class="vm-card">
+          <div class="vm-label">Mission</div>
+          <div class="vm-quote">We solve the problem of waste by raising awareness and bringing innovative solutions to stakeholders — turning <span class="vm-accent">waste into worth</span> through infrastructure that is practical, scalable, and built for Indonesia's reality.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROBLEM ═════════════════════════════════ -->
+  <section id="problem">
+    <div class="section-inner">
+      <div class="problem-header">
+        <div>
+          <div class="section-label">03 / System Framing</div>
+          <h2 class="section-title">The Gap Is<br><span class="accent">Infrastructure.</span></h2>
+        </div>
+        <p class="problem-statement">
+          Indonesia doesn't have a recycling problem. It has a systems problem. Collection is fragmented. Processing is informal. Enforcement is inconsistent. No single actor can close this loop alone — which is why Scrapmint builds the connective tissue.
+        </p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-card-image">
+            <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?w=700&q=75&auto=format&fit=crop" alt="Infrastructure gap" loading="lazy" />
+            <div class="problem-card-image-overlay"></div>
+          </div>
+          <div class="problem-card-body">
+            <div class="problem-number">01</div>
+            <div class="problem-title">Infrastructure Gap</div>
+            <p class="problem-desc">Indonesia generates 70 million tons of municipal solid waste per year — roughly 190,000 tons every single day. Existing collection and sorting infrastructure covers less than a third of that volume. Material Recovery Facilities are sparse, under-resourced, and disconnected from downstream markets.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-image">
+            <img src="https://images.unsplash.com/photo-1604187351574-c75ca79f5807?w=700&q=75&auto=format&fit=crop" alt="Enforcement gap" loading="lazy" />
+            <div class="problem-card-image-overlay"></div>
+          </div>
+          <div class="problem-card-body">
+            <div class="problem-number">02</div>
+            <div class="problem-title">Enforcement Gap</div>
+            <p class="problem-desc">Regulations exist. Implementation doesn't. Extended Producer Responsibility frameworks remain paper policies without operational systems to back them. The compliance infrastructure simply isn't there — and without it, the 14% formal recycling rate cannot move.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-image">
+            <img src="problem_scale_gap.jpeg" alt="Jakarta waste collection workers — scale gap in action" loading="lazy" />
+            <div class="problem-card-image-overlay"></div>
+          </div>
+          <div class="problem-card-body">
+            <div class="problem-number">03</div>
+            <div class="problem-title">Scale Gap</div>
+            <p class="problem-desc">Community programs work at the block level. Industry operates at national scale. Nothing bridges them. Scrapmint is built specifically to operate at the layer between — turning local execution into systemic coverage that can be replicated across every city in the archipelago.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WHAT WE DO ══════════════════════════════ -->
+  <section id="what-we-do">
+    <div class="section-inner">
+      <div class="section-label">04 / Capabilities</div>
+      <h2 class="section-title">What<br><span class="accent">Scrapmint</span><br>Does.</h2>
+      <div class="services-grid">
+        <div class="service-item">
+          <div class="service-image">
+            <img src="team_wastebench.jpeg" alt="Infrastructure design — Scrapmint team at work" loading="lazy" />
+            <div class="service-image-overlay"></div>
+          </div>
+          <div class="service-body">
+            <span class="service-num">01</span>
+            <div class="service-title">Infrastructure Design</div>
+            <p class="service-desc">We map waste flows, identify collection gaps, and design physical systems — sorting hubs, drop points, transfer stations — tailored to the density and material profile of each zone. Every system is built for long-term operability, not just proof-of-concept.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-image">
+            <img src="service_processing.jpeg" alt="Waste processing and recovery — sorting facility" loading="lazy" />
+            <div class="service-image-overlay"></div>
+          </div>
+          <div class="service-body">
+            <span class="service-num">02</span>
+            <div class="service-title">Waste Processing & Recovery</div>
+            <p class="service-desc">We operate or co-develop processing capacity for plastics, organics, and mixed materials — linking recovered output to industrial offtakers and circular product streams. From Material Recovery Facilities to insect-based protein, we close every loop we open.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-image">
+            <img src="team_processing.jpeg" alt="Circular economy field operations" loading="lazy" />
+            <div class="service-image-overlay"></div>
+          </div>
+          <div class="service-body">
+            <span class="service-num">03</span>
+            <div class="service-title">Circular Economy Projects</div>
+            <p class="service-desc">We develop project-based interventions with measurable material impact — from innovative recycling with start-ups (Ecobricks, Waste Bench, Foodcycle) to mall-wide waste diversion programs that redirect up to 80% of waste away from landfill.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-image">
+            <img src="service_institutional.jpeg" alt="Institutional partnership meeting — Indonesia" loading="lazy" />
+            <div class="service-image-overlay"></div>
+          </div>
+          <div class="service-body">
+            <span class="service-num">04</span>
+            <div class="service-title">Institutional Partnerships</div>
+            <p class="service-desc">We work with malls, corporates, and development institutions to design compliance-ready, fundable waste programs — from scoping through to implementation and reporting. Our #MulaiDariSini campaign has already committed major malls to divert waste from landfill.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROJECTS ════════════════════════════════ -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="projects-header">
+        <div>
+          <div class="section-label">05 / Work</div>
+          <h2 class="section-title">Projects.</h2>
+        </div>
+        <a href="#cta">Get Involved →</a>
+      </div>
+      <div class="projects-grid">
+
+        <a href="#detail-material-recovery" class="project-card-link">
+        <div class="project-card">
+          <div class="project-thumb">
+            <img src="team_mrf.jpeg" alt="Material Recovery — Mals Indonesia" loading="lazy" />
+            <div class="project-thumb-overlay"></div>
+            <div class="project-status status-active">Active</div>
+          </div>
+          <div class="project-body">
+            <div class="project-location">Jakarta, Indonesia — Mals Partnership</div>
+            <div class="project-name">Material Recovery</div>
+            <p class="project-blurb">We brought Indonesia's largest malls on board — redirecting waste to Material Recovery Facilities instead of landfill. The program handles 9,500 tons and diverts 7,600 tons, powered by a team of 20 field operators.</p>
+            <div class="project-footer">
+              <span class="project-type">MRF · Plastics · Organics · #MulaiDariSini</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </div>
+        </a>
+
+        <a href="#detail-innovative-recycling" class="project-card-link">
+        <div class="project-card">
+          <div class="project-thumb">
+            <img src="team_wastebench.jpeg" alt="Innovative Recycling — Ecobricks, Waste Bench, Foodcycle" loading="lazy" />
+            <div class="project-thumb-overlay"></div>
+            <div class="project-status status-active">Active</div>
+          </div>
+          <div class="project-body">
+            <div class="project-location">Jakarta, Indonesia — Start-up Collaboration</div>
+            <div class="project-name">Innovative Recycling</div>
+            <p class="project-blurb">We engaged local and international start-ups to upcycle waste into new products: Ecobricks, Waste Bench, and Foodcycle — proving that properly segregated waste is a valuable resource.</p>
+            <div class="project-footer">
+              <span class="project-type">Upcycling · Ecobricks · Foodcycle · Waste Bench</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </div>
+        </a>
+
+        <div class="project-card">
+          <div class="project-thumb">
+            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=700&q=75&auto=format&fit=crop" alt="Upcoming — Sustainable Golf Course & Upcycling Fair" loading="lazy" />
+            <div class="project-thumb-overlay"></div>
+            <div class="project-status status-design">Upcoming</div>
+          </div>
+          <div class="project-body">
+            <div class="project-location">Indonesia — Riverside Golf Course & Mals</div>
+            <div class="project-name">Sustainable Golf Course & Upcycling Fair</div>
+            <p class="project-blurb">Organic waste from Riverside Golf Course converted into insect-based KOI food & fertilizer — plus Indonesia's first ever Upcycling Fair launching at a major mall.</p>
+            <div class="project-footer">
+              <span class="project-type">Organics · Insect Protein · Upcycling Fair</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── MATERIAL RECOVERY DETAIL ── -->
+      <div id="detail-material-recovery" style="margin-top: 96px; padding-top: 64px; border-top: 2px solid var(--navy); scroll-margin-top: 80px;">
+        <div class="section-label" style="margin-bottom:12px;">Material Recovery — Deep Dive</div>
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:clamp(30px,3.5vw,48px);text-transform:uppercase;color:var(--navy);line-height:1;margin-bottom:20px;">
+          9,500 Tons In.<br><span class="accent">7,600 Tons Diverted.</span>
+        </h3>
+        <p style="font-size:16px;line-height:1.75;color:var(--gray-dark);max-width:680px;margin-bottom:0;">
+          We worked with Mals in Indonesia to bring their waste to Material Recovery Facilities (MRFs), instead of having it go directly to landfill. The result: up to 80% of waste diverted. Three phases drove this — a public campaign, on-site education, and sourcing processing partners.
+        </p>
+
+        <!-- Campaign 3-col photos -->
+        <div class="inno-grid" style="margin-top:40px;">
+          <div class="inno-card">
+            <div class="inno-card-img">
+              <img src="https://images.unsplash.com/photo-1569163139599-0f4517e36f51?w=600&q=75&auto=format&fit=crop" alt="#MulaiDariSini campaign launch" loading="lazy" />
+              <div class="inno-card-img-overlay"></div>
+            </div>
+            <div class="inno-card-body">
+              <div class="inno-card-title">#MulaiDariSini</div>
+              <div class="inno-card-sub">Campaign Launch</div>
+              <p class="inno-card-desc">Mals commit publicly to divert waste from landfill. The campaign set a new standard for waste management in Indonesia's retail sector.</p>
+            </div>
+          </div>
+          <div class="inno-card">
+            <div class="inno-card-img">
+              <img src="team_mrf.jpeg" alt="Scrapmint education to mal tenants" loading="lazy" />
+              <div class="inno-card-img-overlay"></div>
+            </div>
+            <div class="inno-card-body">
+              <div class="inno-card-title">Tenant Education</div>
+              <div class="inno-card-sub">Scrapmint Education to Mal Tenants</div>
+              <p class="inno-card-desc">We ran awareness sessions directly with mal tenants — driving waste segregation behavior at the source before material reaches the MRF.</p>
+            </div>
+          </div>
+          <div class="inno-card">
+            <div class="inno-card-img">
+              <img src="team_processing.jpeg" alt="Material recovery facility operations" loading="lazy" />
+              <div class="inno-card-img-overlay"></div>
+            </div>
+            <div class="inno-card-body">
+              <div class="inno-card-title">Material Recovery</div>
+              <div class="inno-card-sub">Sourced Partners to Segregate Waste</div>
+              <p class="inno-card-desc">We sourced and coordinated processing partners — connecting mall waste streams directly to MRF operators and downstream material markets.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MRF Impact Stats -->
+        <div class="mrf-stats-block">
+          <div class="mrf-stat">
+            <div class="mrf-stat-num">9,500</div>
+            <div class="mrf-stat-unit">Tons</div>
+            <div class="mrf-stat-label">Waste Handled</div>
+          </div>
+          <div class="mrf-stat highlight">
+            <div class="mrf-stat-num">7,600</div>
+            <div class="mrf-stat-unit">Tons</div>
+            <div class="mrf-stat-label">Waste Diverted<br>from Landfill</div>
+          </div>
+          <div class="mrf-stat">
+            <div class="mrf-stat-num">20</div>
+            <div class="mrf-stat-unit">Pax</div>
+            <div class="mrf-stat-label">Manpower<br>Involved</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── INNOVATIVE RECYCLING DETAIL ── -->
+      <div id="detail-innovative-recycling" style="margin-top: 96px; padding-top: 64px; border-top: 2px solid var(--navy); scroll-margin-top: 80px;">
+        <div class="section-label" style="margin-bottom:12px;">Innovative Recycling — Deep Dive</div>
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:clamp(30px,3.5vw,48px);text-transform:uppercase;color:var(--navy);line-height:1;margin-bottom:20px;">
+          Scrap Into<br><span class="accent">Something Worth Keeping.</span>
+        </h3>
+        <p style="font-size:16px;line-height:1.75;color:var(--gray-dark);max-width:680px;margin-bottom:0;">
+          We engaged local and international start-ups to recycle and upcycle waste into new products or structures — demonstrating that waste, if properly segregated, is a valuable resource, not a problem to be buried.
+        </p>
+
+        <div class="inno-grid">
+          <div class="inno-card">
+            <div class="inno-card-img">
+              <img src="inno_ecobricks.jpeg" alt="Ecobricks — plastic bottles filled with waste as building material" loading="lazy" />
+              <div class="inno-card-img-overlay"></div>
+            </div>
+            <div class="inno-card-body">
+              <div class="inno-card-title">Ecobricks</div>
+              <div class="inno-card-sub">Turning plastic into sustainable building material</div>
+              <p class="inno-card-desc">Plastic waste is densely packed into bottles to create structural building blocks — diverting non-recyclable plastic from landfill while producing functional construction material.</p>
+            </div>
+          </div>
+          <div class="inno-card">
+            <div class="inno-card-img">
+              <img src="team_wastebench.jpeg" alt="Waste Bench — upcycling plastic and glass" loading="lazy" />
+              <div class="inno-card-img-overlay"></div>
+            </div>
+            <div class="inno-card-body">
+              <div class="inno-card-title">Waste Bench</div>
+              <div class="inno-card-sub">Upcycling with design start-ups</div>
+              <p class="inno-card-desc">We collaborated with design start-ups to build functional benches from recovered plastic and glass — creating tangible proof that waste can become durable, desirable products.</p>
+            </div>
+          </div>
+          <div class="inno-card">
+            <div class="inno-card-img">
+              <img src="inno_foodcycle.jpeg" alt="Foodcycle — food waste composted into organic fertilizer" loading="lazy" />
+              <div class="inno-card-img-overlay"></div>
+            </div>
+            <div class="inno-card-body">
+              <div class="inno-card-title">Foodcycle</div>
+              <div class="inno-card-sub">Recycling leftover food into insect-based protein & fertilizer</div>
+              <p class="inno-card-desc">Organic food waste is processed through Black Soldier Fly larvae — producing high-protein animal feed and organic fertilizer, closing the nutrient loop completely.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ UPCOMING PLANS ════════════════════════════ -->
+  <section id="upcoming">
+    <div class="section-inner">
+      <div class="section-label">06 / What's Next</div>
+      <h2 class="section-title">Upcoming<br><span class="accent">Plans.</span></h2>
+      <div class="upcoming-grid">
+        <div class="upcoming-card">
+          <div class="upcoming-card-img">
+            <img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=800&q=75&auto=format&fit=crop" alt="Sustainable Golf Course" loading="lazy" />
+            <div class="upcoming-card-img-overlay"></div>
+          </div>
+          <div class="upcoming-card-body">
+            <div class="upcoming-badge">Coming Soon</div>
+            <div class="upcoming-card-title">Sustainable<br>Golf Course</div>
+            <p class="upcoming-card-desc">We will collect organic waste from Riverside Golf Course and process it through Black Soldier Fly technology — creating insect-based KOI food and fertilizer. The program reduces carbon emissions while producing commercially viable organic products from what was previously treated as waste.</p>
+          </div>
+        </div>
+        <div class="upcoming-card">
+          <div class="upcoming-card-img">
+            <img src="upcoming_upcycling_fair.jpeg" alt="Upcycling Fair — exhibition of upcycled products" loading="lazy" />
+            <div class="upcoming-card-img-overlay"></div>
+          </div>
+          <div class="upcoming-card-body">
+            <div class="upcoming-badge">In Planning</div>
+            <div class="upcoming-card-title">Upcycling<br>Fair</div>
+            <p class="upcoming-card-desc">We are launching Indonesia's first-ever Recycling and Upcycling Fair at a major mall — combining product exhibitions, start-up showcases, and public education into a single high-visibility event. Inspired by The Hyundai (2023) model, this fair is designed to shift public perception of waste from problem to resource.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HOW WE WORK ══════════════════════════════ -->
+  <section id="how-we-work">
+    <div class="section-inner">
+      <div class="section-label">07 / Process</div>
+      <h2 class="section-title">How We<br><span class="accent">Build.</span></h2>
+      <div class="process-track">
+        <div class="process-step">
+          <div class="process-step-image">
+            <img src="team_mrf.jpeg" alt="Diagnose" loading="lazy" />
+            <div class="process-step-image-border"></div>
+          </div>
+          <div class="step-num">01</div>
+          <div class="step-label">Phase One</div>
+          <div class="step-title">Diagnose</div>
+          <p class="step-desc">Material flow analysis and on-site audit — quantifying waste volumes, mapping informal haulers, and identifying the exact infrastructure gaps that Scrapmint is positioned to close.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step-image">
+            <img src="team_wastebench.jpeg" alt="Design" loading="lazy" />
+            <div class="process-step-image-border"></div>
+          </div>
+          <div class="step-num">02</div>
+          <div class="step-label">Phase Two</div>
+          <div class="step-title">Design</div>
+          <p class="step-desc">System architecture — collection routing, MRF configuration, market linkages — with a proven business model and measurable impact metrics built in from day one.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step-image">
+            <img src="team_processing.jpeg" alt="Implement" loading="lazy" />
+            <div class="process-step-image-border"></div>
+          </div>
+          <div class="step-num">03</div>
+          <div class="step-label">Phase Three</div>
+          <div class="step-title">Implement</div>
+          <p class="step-desc">Physical infrastructure stands up. Mall tenants educated. Community and institutional partners onboarded. Field operations run by a hands-on youth team that gets into the facility themselves.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step-image">
+            <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500&q=70&auto=format&fit=crop" alt="Scale" loading="lazy" />
+            <div class="process-step-image-border"></div>
+          </div>
+          <div class="step-num">04</div>
+          <div class="step-label">Phase Four</div>
+          <div class="step-title">Scale</div>
+          <p class="step-desc">Document what works, package for replication, expand — deeper into the same geography or horizontally across new cities — without losing the operational discipline that makes results real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ YOUTH ════════════════════════════════════ -->
+  <section id="youth">
+    <div class="youth-visual">
+      <img src="team_mrf.jpeg" alt="Scrapmint team at a Material Recovery Facility, Indonesia" loading="lazy" />
+      <div class="youth-visual-overlay"></div>
+      <div class="youth-visual-text">
+        <div class="youth-visual-headline">
+          Next-Gen<br><span>Execution</span><br>Force.
+        </div>
+      </div>
+    </div>
+    <div class="youth-content">
+      <div class="section-label">08 / People</div>
+      <h2 class="youth-statement">
+        Youth-Powered.<br>
+        <span>Systems-Driven.</span><br>
+        Professionally Operated.
+      </h2>
+      <p class="youth-body">
+        Scrapmint is built and run by the generation that will live with the consequences. Not as advocates — as operators. Our founding team visits MRF facilities, runs tenant education sessions, sources processing partners, and shows up on the factory floor. We bring field-level rigor, data-driven decision-making, and a long-term commitment to building systems that outlast any single project or funding cycle.
+      </p>
+      <div class="youth-pillars">
+        <div class="pillar-row"><div class="pillar-dot"></div><div class="pillar-text">Field Operations & MRF Partnerships</div></div>
+        <div class="pillar-row"><div class="pillar-dot"></div><div class="pillar-text">Systems & Infrastructure Design</div></div>
+        <div class="pillar-row"><div class="pillar-dot"></div><div class="pillar-text">Mall & Institutional Liaison</div></div>
+        <div class="pillar-row"><div class="pillar-dot"></div><div class="pillar-text">Innovation, Upcycling & Start-up Engagement</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOUNDERS ══════════════════════════════════ -->
+  <section id="founders">
+    <div class="section-inner">
+      <div class="section-label">09 / Founders</div>
+      <h2 class="section-title">The People<br><span class="accent">Behind It.</span></h2>
+      <div class="founders-grid">
+
+        <div class="founder-card">
+          <div class="founder-photo">
+            <img src="Winston_Tedja.jpg" alt="Winston Tedja — President" loading="lazy" />
+            <div class="founder-photo-overlay"></div>
+            <div class="founder-identity">
+              <div class="founder-name">Winston Tedja</div>
+              <div class="founder-title">President</div>
+            </div>
+          </div>
+          <div class="founder-quote-drawer">
+            <div class="founder-quote-mark">"</div>
+            <div class="founder-quote-text">We're not building a startup. We're building a piece of national infrastructure. That distinction shapes every decision we make.</div>
+            <div class="founder-quote-name">Winston Tedja</div>
+          </div>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-photo">
+            <img src="Jiaming_Sun.jpg" alt="Jiaming Sun — Vice President" loading="lazy" />
+            <div class="founder-photo-overlay"></div>
+            <div class="founder-identity">
+              <div class="founder-name">Jiaming Sun</div>
+              <div class="founder-title">Vice President</div>
+            </div>
+          </div>
+          <div class="founder-quote-drawer">
+            <div class="founder-quote-mark">"</div>
+            <div class="founder-quote-text">Operations is where vision either lives or dies. My job is to make sure the system works in the real world — not just on a whiteboard.</div>
+            <div class="founder-quote-name">Jiaming Sun</div>
+          </div>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-photo">
+            <img src="Kathan_Lau.jpg" alt="Kathan Lau — Secretary" loading="lazy" />
+            <div class="founder-photo-overlay"></div>
+            <div class="founder-identity">
+              <div class="founder-name">Kathan Lau</div>
+              <div class="founder-title">Secretary</div>
+            </div>
+          </div>
+          <div class="founder-quote-drawer">
+            <div class="founder-quote-mark">"</div>
+            <div class="founder-quote-text">Good systems leave a paper trail. Documentation isn't bureaucracy — it's how we build institutional memory that scales beyond any one project.</div>
+            <div class="founder-quote-name">Kathan Lau</div>
+          </div>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-photo">
+            <img src="Junyoung_Kwak.jpg" alt="Junyoung Kwak — Treasurer" loading="lazy" />
+            <div class="founder-photo-overlay"></div>
+            <div class="founder-identity">
+              <div class="founder-name">Junyoung Kwak</div>
+              <div class="founder-title">Treasurer</div>
+            </div>
+          </div>
+          <div class="founder-quote-drawer">
+            <div class="founder-quote-mark">"</div>
+            <div class="founder-quote-text">Circular economy is fundamentally a financial engineering problem. If the unit economics don't work, the mission doesn't either.</div>
+            <div class="founder-quote-name">Junyoung Kwak</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUOTE STRIP ═══════════════════════════════ -->
+  <section id="quote-strip">
+    <div class="quote-inner">
+      <div class="quote-mark">"</div>
+      <div>
+        <div class="quote-text">The infrastructure for a circular economy won't build itself. Someone has to do the unglamorous work of making it real.</div>
+        <div class="quote-source">— Scrapmint Founding Principle</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA ══════════════════════════════════════ -->
+  <section id="cta">
+    <div class="cta-bg">
+      <img src="team_processing.jpeg" alt="" aria-hidden="true" loading="lazy" />
+    </div>
+    <div class="cta-inner">
+      <div>
+        <h2 class="cta-headline">
+          Let's Build<br>
+          <span class="accent">The System.</span>
+        </h2>
+        <p class="cta-sub">
+          Whether you're a mall operator, corporate partner, government body, or development institution — if you're serious about circular infrastructure in Indonesia, we want to talk.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a href="mailto:hello@scrapmint.id" class="btn-primary">Partner With Us</a>
+        <a href="#projects" class="btn-secondary">Explore Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+        <div>
+          <img src="logo.png" alt="Scrapmint" class="footer-logo-img" />
+          <div class="footer-tagline">Waste Infrastructure · Circular Systems · Indonesia</div>
+        </div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#problem">The Problem</a></li>
+        <li><a href="#what-we-do">What We Do</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#upcoming">Upcoming</a></li>
+        <li><a href="#founders">Founders</a></li>
+        <li><a href="#cta">Contact</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="https://instagram.com/scrapmint.id" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+          @scrapmint.id
+        </a>
+      </div>
+      <div class="footer-copy">© 2026 Scrapmint</div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+
+    function openDrawer() {
+      hamburger.classList.add('open');
+      mobileDrawer.classList.add('open');
+      drawerOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      hamburger.classList.remove('open');
+      mobileDrawer.classList.remove('open');
+      drawerOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+    drawerOverlay.addEventListener('click', closeDrawer);
+    document.querySelectorAll('.mobile-drawer a').forEach(a => {
+      a.addEventListener('click', closeDrawer);
+    });
+  </script>
+</body>
+</html>
