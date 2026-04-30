@@ -1,14 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+// hero-bg-image removed
 
 export default function Hero() {
   return (
     <section id="hero">
-      <div className="hero-bg-image">
-        <Image src="/team_mrf.jpeg" alt="" aria-hidden fill style={{ objectFit: "cover" }} priority />
-      </div>
-
-      <div className="hero-left">
+      <div className="hero-left" style={{ background: "var(--navy)" }}>
         <div className="hero-tag">Indonesia · Circular Infrastructure</div>
         <h1 className="hero-headline">
           Waste Is A<br />
