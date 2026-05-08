@@ -5,6 +5,7 @@ const problems = [
     num: "01",
     title: "Infrastructure Gap",
     img: "/problem_infrastructure.jpeg",
+    imgPosition: "center 65%",
     alt: "Infrastructure gap",
     desc: "Indonesia generates 70 million tons of municipal solid waste per year — roughly 190,000 tons every single day. Existing collection and sorting infrastructure covers less than a third of that volume. Material Recovery Facilities are sparse, under-resourced, and disconnected from downstream markets.",
   },
@@ -12,6 +13,7 @@ const problems = [
     num: "02",
     title: "Enforcement Gap",
     img: "/problem_enforcement.jpeg",
+    imgPosition: "center center",
     alt: "Enforcement gap",
     desc: "Regulations exist. Implementation doesn't. Extended Producer Responsibility frameworks remain paper policies without operational systems to back them. The compliance infrastructure simply isn't there — and without it, the 14% formal recycling rate cannot move.",
   },
@@ -19,6 +21,7 @@ const problems = [
     num: "03",
     title: "Scale Gap",
     img: "/problem_scale.jpeg",
+    imgPosition: "center center",
     alt: "Jakarta waste collection workers — scale gap in action",
     desc: "Community programs work at the block level. Industry operates at national scale. Nothing bridges them. Scrapmint is built specifically to operate at the layer between — turning local execution into systemic coverage that can be replicated across every city in the archipelago.",
   },
@@ -48,7 +51,7 @@ export default function Problem() {
                   alt={p.alt}
                   width={700}
                   height={180}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: p.imgPosition }}
                 />
                 <div className="problem-card-image-overlay" />
               </div>
