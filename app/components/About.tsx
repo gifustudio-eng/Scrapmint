@@ -7,7 +7,7 @@ export default function About() {
         <div className="about-grid">
           <div className="about-image-wrap">
             <Image
-              src="/about_team.jpeg"
+              src="/about_team_new.jpeg"
               alt="Scrapmint team visiting a Material Recovery Facility in Indonesia"
               width={800}
               height={600}

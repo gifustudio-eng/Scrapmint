@@ -4,7 +4,7 @@ const services = [
   {
     num: "01",
     title: "Infrastructure Design",
-    img: "/team_wastebench.jpeg",
+    img: "/service_infrastructure.jpeg",
     alt: "Infrastructure design — Scrapmint team at work",
     desc: "We map waste flows, identify collection gaps, and design physical systems — sorting hubs, drop points, transfer stations — tailored to the density and material profile of each zone. Every system is built for long-term operability, not just proof-of-concept.",
   },
@@ -18,14 +18,14 @@ const services = [
   {
     num: "03",
     title: "Circular Economy Projects",
-    img: "/team_processing.jpeg",
+    img: "/service_circular.jpeg",
     alt: "Circular economy field operations",
     desc: "We develop project-based interventions with measurable material impact — from innovative recycling with start-ups (Ecobricks, Waste Bench, Foodcycle) to mall-wide waste diversion programs that redirect up to 80% of waste away from landfill.",
   },
   {
     num: "04",
     title: "Institutional Partnerships",
-    img: "/service_institutional.jpeg",
+    img: "/service_institutional_new.jpeg",
     alt: "Institutional partnership meeting — Indonesia",
     desc: "We work with malls, corporates, and development institutions to design compliance-ready, fundable waste programs — from scoping through to implementation and reporting. Our #MulaiDariSini campaign has already committed major malls to divert waste from landfill.",
   },

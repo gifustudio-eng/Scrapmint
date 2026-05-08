@@ -7,7 +7,6 @@ import WhatWeDo from "./components/WhatWeDo";
 import Projects from "./components/Projects";
 import Upcoming from "./components/Upcoming";
 import HowWeWork from "./components/HowWeWork";
-import Youth from "./components/Youth";
 import Founders from "./components/Founders";
 import { QuoteStrip, CTA, Footer } from "./components/FooterCTA";
 
@@ -23,7 +22,6 @@ export default function Home() {
       <Projects />
       <Upcoming />
       <HowWeWork />
-      <Youth />
       <Founders />
       <QuoteStrip />
       <CTA />

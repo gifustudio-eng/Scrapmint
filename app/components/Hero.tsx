@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-// hero-bg-image removed
 
 export default function Hero() {
   return (
@@ -24,13 +23,12 @@ export default function Hero() {
       <div className="hero-right">
         <div className="hero-image-stack">
           <Image
-            src="/hero_waste_jakarta.jpeg"
-            alt="Waste pile under a Jakarta flyover — Indonesia's waste crisis"
+            src="/indonesia_map.jpeg"
+            alt="Peta Indonesia — Built for Indonesia, Engineered for Scale"
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "contain", objectPosition: "center", background: "var(--navy)" }}
             priority
           />
-          <div className="hero-image-overlay" />
         </div>
         <div className="hero-stat-block">
           {[
