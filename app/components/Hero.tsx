@@ -21,12 +21,16 @@ export default function Hero() {
       </div>
 
       <div className="hero-right">
-        <div className="hero-image-stack">
+        <div className="hero-image-stack hero-map-stack">
           <Image
-            src="/indonesia_map.jpeg"
+            src="/indonesia_map.png"
             alt="Peta Indonesia — Built for Indonesia, Engineered for Scale"
             fill
-            style={{ objectFit: "contain", objectPosition: "center", background: "var(--navy)" }}
+            style={{
+              objectFit: "contain",
+              objectPosition: "center center",
+              padding: "32px 24px",
+            }}
             priority
           />
         </div>
