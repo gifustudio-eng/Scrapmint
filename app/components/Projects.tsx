@@ -117,8 +117,8 @@ const PROJECTS: Project[] = [
     id: "golf-upcycling",
     status: "Upcoming",
     statusClass: "status-design",
-    thumb: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=700&q=75&auto=format&fit=crop",
-    thumbExternal: true,
+    thumb: "/project_upcycling_fair.jpeg",
+
     location: "Indonesia — Riverside Golf Course & Mals",
     name: "Sustainable Golf Course & Upcycling Fair",
     blurb: "Organic waste from Riverside Golf Course converted into insect-based KOI food & fertilizer — plus Indonesia's first ever Upcycling Fair launching at a major mall.",
