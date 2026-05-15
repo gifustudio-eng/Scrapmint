@@ -369,7 +369,7 @@ footer { background: var(--navy-deep); border-top: 2px solid rgba(255,255,255,0.
 }
 
 .modal-cards {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2px; background: var(--gray-light);
   border: 2px solid var(--navy); margin-bottom: 2px;
 }
